@@ -1008,6 +1008,13 @@ public:
                     events.Repeat(2s);
                     break;
                 case NELSON_EVENT_DREADFUL_FRIGHT:
+                    // Not while the victim is in melee range, so staying close prevents the fear
+                    if (me->IsWithinMeleeRange(me->GetVictim()))
+                    {
+                        events.Repeat(1s);
+                        break;
+                    }
+
                     me->CastSpell(me->GetVictim(), NELSON_SPELL_DREADFUL_FRIGHT, false);
                     events.Repeat(12s, 19s);
                     break;
